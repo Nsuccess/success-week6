@@ -1,22 +1,26 @@
----
 name: Lint Code Base
-on:
-  pull_request:
-  push:
-    branches:
-      - main
+
+# Trigger the workflow on push and pull request events
+on: [push, pull_request]
+
 jobs:
   lint:
+    # Specify that the workflow runs on the latest version of Ubuntu
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run Super-Linter
-        uses: github/super-linter@v4
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_ALL_CODEBASE: true
-          VALIDATE_BASH: true
-          VALIDATE_YAML: true
-          VALIDATE_MARKDOWN: true
+    # Step 1: Check out the repository's code
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    # Step 2: Run Super-Linter
+    - name: Run Super-Linter
+      uses: github/super-linter@v4
+      env:
+        # Use the GitHub token to authenticate the linter run
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Set the main branch as the default branch
+        DEFAULT_BRANCH: main
+        # Enable linting for Bash and YAML files specifically
+        VALIDATE_BASH: true
+        VALIDATE_YAML: true
