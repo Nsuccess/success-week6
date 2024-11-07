@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Step 1: Extract version and size from params.yml
 VERSION=$(grep 'version:' params.yml | awk '{print $2}')
